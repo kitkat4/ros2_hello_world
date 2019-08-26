@@ -6,11 +6,14 @@
 #include <string>
 #include <iostream>
 
-using namespace std::chrono_literals;
+using namespace std::chrono_literals; // 100ms とかの表記に必要
 
 
 class Talker : public rclcpp::Node{
 public:
+    
+    // 引数が 1 つしかないコンストラクタを定義するときは，
+    // 暗黙の型変換を抑止するために explicit をつけると良いらしい
     explicit Talker(const std::string & topic_name)
         : Node("talker"){
         
@@ -23,7 +26,10 @@ public:
             pub_->publish(*msg_);
         };
 
-        // 10 が無難と https://index.ros.org//doc/ros2/Releases/Release-Dashing-Diademata/ に書いてある
+        // 10 が無難と
+        // https://index.ros.org//doc/ros2/Releases/Release-Dashing-Diademata/
+        // に書いてある．
+        // 第 2 引数を省略するのは deprecated らしい．
         pub_ = create_publisher<std_msgs::msg::String>(topic_name, 10); 
 
         timer_ = create_wall_timer(100ms, publish_message);
