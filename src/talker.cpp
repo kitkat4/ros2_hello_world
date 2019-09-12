@@ -26,11 +26,11 @@ public:
             pub_->publish(*msg_);
         };
 
-        // 10 が無難と
-        // https://index.ros.org//doc/ros2/Releases/Release-Dashing-Diademata/
-        // に書いてある．
+        
         // 第 2 引数を省略するのは deprecated らしい．
-        pub_ = create_publisher<std_msgs::msg::String>(topic_name, 10); 
+        // 参考：
+        // https://index.ros.org//doc/ros2/Releases/Release-Dashing-Diademata/
+        pub_ = create_publisher<std_msgs::msg::String>(topic_name, 1); 
 
         timer_ = create_wall_timer(100ms, publish_message);
     }

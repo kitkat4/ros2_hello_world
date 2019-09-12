@@ -36,11 +36,14 @@ add_executable(talker
 ament_target_dependencies(talker
   rclcpp
   std_msgs)
+install(TARGETS talker DESTINATION lib/${PROJECT_NAME})
 
-# add_executable(listener
-#   src/listener.cpp)
-# ament_target_dependencies(listener
-#   "rclcpp")
-
+add_executable(listener
+  src/listener.cpp)
+ament_target_dependencies(listener
+  rclcpp
+  std_msgs)
+install(TARGETS listener DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
+
